@@ -1,0 +1,8 @@
+# Dados reais (links do Drive e legendas) NUNCA vão para o repositório.
+# O GitHub Pages publica tudo o que está no repositório, mesmo sendo privado.
+private/*
+!private/memories.example.json
+
+.DS_Store
+Thumbs.db
+desktop.ini

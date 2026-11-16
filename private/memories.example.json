@@ -1,0 +1,89 @@
+{
+  "memories": [
+    {
+      "src": "https://drive.google.com/file/d/SUBSTITUA_PELO_ID_DA_FOTO/view?usp=sharing",
+      "alt": "Nós dois rindo juntos ao ar livre",
+      "caption": "o começo",
+      "emoji": "✨",
+      "rotate": -2,
+      "tape": "sage",
+      "tapePosition": "top-left",
+      "backing": "notebook",
+      "note": "bilhetes de amor"
+    },
+    {
+      "src": "https://picsum.photos/seed/autumn-strolls/600/750",
+      "alt": "De mãos dadas em um passeio de outono",
+      "caption": "passeios de outono",
+      "emoji": "🍂",
+      "rotate": 3,
+      "tape": "rose",
+      "tapePosition": "top",
+      "clip": true,
+      "backing": "note",
+      "backingTone": "rose"
+    },
+    {
+      "src": "https://picsum.photos/seed/first-coffee/600/750",
+      "alt": "Dividindo um café na nossa cafeteria favorita",
+      "caption": "nosso primeiro café",
+      "emoji": "☕",
+      "rotate": -2,
+      "tape": "sage",
+      "tapePosition": "bottom-right",
+      "clip": true
+    },
+    {
+      "src": "https://picsum.photos/seed/coffee-coffee/600/750",
+      "alt": "Manhã aconchegante com duas xícaras de café",
+      "caption": "café, café",
+      "emoji": "♡",
+      "rotate": 3,
+      "tape": "butter",
+      "tapePosition": "top",
+      "backing": "note",
+      "backingTone": "butter"
+    }
+  ],
+  "albums": [
+    {
+      "heading": "o começo",
+      "date": "mar 2023",
+      "tape": "rose",
+      "photos": [
+        { "src": "https://picsum.photos/seed/album-beginning-1/300/300", "caption": "o começo" },
+        { "src": "https://picsum.photos/seed/album-beginning-2/300/300", "caption": "1º encontro" },
+        { "src": "https://picsum.photos/seed/album-beginning-3/300/300", "caption": "nós ♡" }
+      ]
+    },
+    {
+      "heading": "passeios de outono",
+      "date": "out 2023",
+      "tape": "sage",
+      "photos": [
+        { "src": "https://picsum.photos/seed/album-autumn-1/300/300", "caption": "folhas douradas" },
+        { "src": "https://picsum.photos/seed/album-autumn-2/300/300", "caption": "passeios" }
+      ]
+    },
+    {
+      "heading": "manhãs de café",
+      "date": "jan 2024",
+      "tape": "butter",
+      "photos": [
+        { "src": "https://picsum.photos/seed/album-coffee-1/300/300", "caption": "cafezinho" },
+        { "src": "https://picsum.photos/seed/album-coffee-2/300/300", "caption": "domingo" },
+        { "src": "https://picsum.photos/seed/album-coffee-3/300/300", "caption": "lattes" }
+      ]
+    },
+    {
+      "heading": "verão na praia",
+      "date": "jul 2024",
+      "tape": "lavender",
+      "photos": [
+        { "src": "https://picsum.photos/seed/album-sea-1/300/300", "caption": "pé na areia" },
+        { "src": "https://picsum.photos/seed/album-sea-2/300/300", "caption": "pôr do sol" },
+        { "src": "https://picsum.photos/seed/album-sea-3/300/300", "caption": "sorvete" }
+      ]
+    }
+  ]
+}

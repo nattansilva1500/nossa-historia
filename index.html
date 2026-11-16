@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>nossa história de amor.</title>
+  <meta name="description" content="Um álbum digital guardando cada pequeno momento juntos." />
+  <meta name="theme-color" content="#FDFBF7" />
+  <meta name="robots" content="noindex, nofollow, noimageindex" />
+  <meta name="referrer" content="no-referrer" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=Patrick+Hand&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/gate.css" />
+</head>
+<body>
+  <!-- Sprite de ícones e doodles desenhados à mão -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <path id="leaf" d="M0 0 C-6 -10 -20 -16 -34 -14 C-28 -4 -14 2 0 0 Z M0 0 L-26 -11" />
+
+      <symbol id="i-heart-sketch" viewBox="0 0 48 48">
+        <path d="M24 40.5c-9.5-6.6-17.6-13.4-17.6-22.2 0-5.6 4.1-9.6 9.1-9.6 3.7 0 6.6 2.2 8.3 5.6 1.8-3.6 4.8-5.8 8.6-5.8 5 0 9.1 4 9.1 9.6 0 8.9-8 15.8-17.5 22.4z"
+              stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+        <path d="M22.6 38.6c-8.4-6.3-15-12.4-14.6-20.4.3-4.6 3.6-7.9 7.9-7.7" fill="none"
+              stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".55" />
+        <path d="M30.5 13.5c1.6-.6 3.4-.4 4.6.6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".8" />
+      </symbol>
+
+      <symbol id="i-heart-line" viewBox="0 0 24 24">
+        <path d="M12 20.5C7 17 3.2 13.6 3.2 9.2 3.2 6.4 5.2 4.4 7.7 4.4c1.9 0 3.4 1.1 4.3 2.9.9-1.8 2.4-3 4.4-3 2.5 0 4.4 2 4.4 4.8 0 4.5-3.9 7.9-8.8 11.4z"
+              fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" />
+      </symbol>
+
+      <symbol id="i-star" viewBox="0 0 24 24">
+        <path d="M12 2.5l2.4 6.6 7 .4-5.5 4.4 1.9 6.8L12 16.8l-5.8 3.9 1.9-6.8-5.5-4.4 7-.4z"
+              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+      </symbol>
+
+      <symbol id="i-sparkle" viewBox="0 0 24 24">
+        <path d="M12 2c.4 6 3.6 9.4 10 10-6.4.6-9.6 4-10 10-.4-6-3.6-9.4-10-10 6.4-.6 9.6-4 10-10z"
+              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+      </symbol>
+
+      <symbol id="i-arrow-curve" viewBox="0 0 64 32">
+        <path d="M4 26C16 8 36 4 56 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M47 5.5l9.5 6.5-8.6 6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+
+      <symbol id="i-arrow-down" viewBox="0 0 40 40">
+        <path d="M6 5c1.5 13 9 23 25 27" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M23.5 26.5l8 5.7-7.6 5.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+
+      <symbol id="i-loop-arrow" viewBox="0 0 60 110">
+        <path d="M30 104C8 92 4 70 22 58c14-9 30 2 22 14-7 10-24 4-26-12-2-18 8-36 22-50"
+              fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="5 6" />
+        <path d="M32 6l10 4-3 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+
+      <symbol id="i-clip" viewBox="0 0 24 60">
+        <path d="M15.5 14v30a4.5 4.5 0 0 1-9 0V9.5a6.5 6.5 0 0 1 13 0V47a8.5 8.5 0 0 1-17 0V18"
+              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+      </symbol>
+
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9" />
+        <path d="M15.4 15.6l5.1 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+      </symbol>
+
+      <symbol id="i-chevron-left" viewBox="0 0 24 24">
+        <path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24">
+        <path d="M9.5 5.5L16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+
+      <symbol id="i-leaf-branch" viewBox="0 0 120 220">
+        <path d="M60 215C58 170 64 110 58 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        <path d="M58 20C52 12 54 4 60 0c4 6 4 14-2 20z" stroke="currentColor" stroke-width="1.4" />
+        <g stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+          <use href="#leaf" transform="translate(59 185) rotate(-5)" />
+          <use href="#leaf" transform="translate(61 165) scale(-1 1) rotate(-5)" />
+          <use href="#leaf" transform="translate(60 140) rotate(5)" />
+          <use href="#leaf" transform="translate(62 118) scale(-1 1)" />
+          <use href="#leaf" transform="translate(61 92) rotate(10)" />
+          <use href="#leaf" transform="translate(60 70) scale(-1 1) rotate(5)" />
+          <use href="#leaf" transform="translate(59 48) rotate(15) scale(.85)" />
+          <use href="#leaf" transform="translate(59 32) scale(-.8 .8) rotate(10)" />
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Borda de papel kraft rasgado -->
+  <div class="kraft-edge" aria-hidden="true"></div>
+
+  <!-- Tela da chave de acesso (pedida a cada visita) -->
+  <div class="gate" id="gate">
+    <form class="gate__paper" id="gate-form" novalidate>
+      <span class="tape tape--sage tape--top-left" aria-hidden="true"></span>
+      <span class="tape tape--rose tape--top-right" aria-hidden="true"></span>
+      <svg class="gate__logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-heart-sketch" /></svg>
+      <h1 class="gate__title">nossa história de amor.</h1>
+      <p class="gate__hint">esse cantinho é só nosso. digite a nossa chave ♡</p>
+      <label for="gate-key" class="visually-hidden">chave de acesso</label>
+      <input class="gate__input" id="gate-key" type="password" placeholder="nossa chave secreta…"
+             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+      <p class="gate__error" id="gate-error" role="alert"></p>
+      <button class="stamp-btn" type="submit">abrir o álbum</button>
+    </form>
+  </div>
+
+  <div class="page" id="page" hidden>
+    <header class="site-header">
+      <a class="logo" href="#top" aria-label="Nossa história — início">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-heart-sketch" /></svg>
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <ul>
+          <li><a href="#memories" aria-current="page">Nossas Memórias</a></li>
+          <li><a href="#scrapbook">Álbum</a></li>
+          <li><a href="#timeline">Linha do Tempo</a></li>
+        </ul>
+      </nav>
+
+      <div class="search" id="search" role="search">
+        <label for="search-input" class="visually-hidden">Buscar memórias</label>
+        <input id="search-input" class="search__input" type="search" placeholder="buscar memórias…" autocomplete="off" maxlength="40" />
+        <button class="icon-btn" id="search-toggle" type="button" aria-label="Buscar memórias" aria-expanded="false" aria-controls="search-input">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-search" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="memories" aria-labelledby="hero-title">
+        <!-- Doodles decorativos -->
+        <svg class="doodle doodle--sparkle" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sparkle" /></svg>
+        <svg class="doodle doodle--star-a" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star" /></svg>
+        <svg class="doodle doodle--star-b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star" /></svg>
+        <svg class="doodle doodle--heart-a" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart-line" /></svg>
+        <svg class="doodle doodle--heart-b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart-line" /></svg>
+        <svg class="doodle doodle--heart-c" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart-line" /></svg>
+        <svg class="doodle doodle--arrow-a" viewBox="0 0 64 32" aria-hidden="true"><use href="#i-arrow-curve" /></svg>
+        <svg class="doodle doodle--arrow-b" viewBox="0 0 64 32" aria-hidden="true"><use href="#i-arrow-curve" /></svg>
+        <svg class="doodle doodle--arrow-c" viewBox="0 0 64 32" aria-hidden="true"><use href="#i-arrow-curve" /></svg>
+
+        <h1 class="hero__title" id="hero-title">Nossa história</h1>
+        <p class="hero__subtitle">guardando cada pequeno momento juntos.</p>
+
+        <!-- Os <memory-card> são renderizados a partir dos dados criptografados (js/data.enc.js) -->
+        <div class="collage" id="collage"></div>
+        <p class="collage__empty" id="collage-empty" hidden>nenhuma memória encontrada… tente outra palavra ♡</p>
+      </section>
+
+      <section class="recent" id="scrapbook" aria-labelledby="recent-title">
+        <svg class="doodle doodle--loop" viewBox="0 0 60 110" aria-hidden="true"><use href="#i-loop-arrow" /></svg>
+
+        <div class="recent__main">
+          <div class="recent__head">
+            <h2 class="recent__title" id="recent-title">Páginas Recentes</h2>
+            <div class="recent__controls">
+              <button class="round-btn" type="button" data-scroll="-1" aria-label="Páginas anteriores" aria-controls="recent-track">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-chevron-left" /></svg>
+              </button>
+              <button class="round-btn" type="button" data-scroll="1" aria-label="Próximas páginas" aria-controls="recent-track">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-chevron-right" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Os <album-card> são renderizados a partir dos dados criptografados (js/data.enc.js) -->
+          <ul class="recent__track" id="recent-track"></ul>
+        </div>
+      </section>
+    </main>
+
+    <svg class="leaf-branch leaf-branch--left" viewBox="0 0 120 220" aria-hidden="true"><use href="#i-leaf-branch" /></svg>
+    <svg class="leaf-branch leaf-branch--right" viewBox="0 0 120 220" aria-hidden="true"><use href="#i-leaf-branch" /></svg>
+  </div>
+
+  <script src="js/components/dom.js" defer></script>
+  <script src="js/components/memory-card.js" defer></script>
+  <script src="js/components/album-card.js" defer></script>
+  <script src="js/vault.js" defer></script>
+  <script src="js/data.enc.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

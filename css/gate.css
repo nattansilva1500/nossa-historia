@@ -1,0 +1,106 @@
+/* ==========================================================
+   Tela da chave de acesso
+   ========================================================== */
+
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem;
+  overflow-y: auto;
+  transition: opacity 0.5s var(--ease-paper);
+}
+
+.gate.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gate__paper {
+  position: relative;
+  width: min(400px, 100%);
+  padding: 2.75rem 2rem 2.25rem;
+  text-align: center;
+  background: #fffefb var(--noise);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 1px rgba(74, 59, 50, 0.08),
+    0 30px 60px -28px rgba(74, 59, 50, 0.5);
+  rotate: -1.5deg;
+  animation: card-in 0.7s var(--ease-paper) backwards;
+}
+
+.gate.is-wrong .gate__paper {
+  animation: gate-shake 0.45s ease;
+}
+
+.gate__logo {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 0.75rem;
+  color: var(--ink);
+  fill: var(--kraft);
+}
+
+.gate__title {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: clamp(2.1rem, 8vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.gate__hint {
+  margin: 0.6rem 0 1.75rem;
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+
+.gate__input {
+  width: 100%;
+  padding: 0.5rem 0.25rem;
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  text-align: center;
+  letter-spacing: 0.08em;
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed var(--ink-soft);
+  border-radius: 0;
+}
+
+.gate__input:focus {
+  outline: none;
+  border-bottom-style: solid;
+  border-bottom-color: var(--ink);
+}
+
+.gate__input::placeholder {
+  letter-spacing: normal;
+  color: rgba(122, 106, 94, 0.6);
+}
+
+.gate__error {
+  min-height: 1.7em;
+  margin: 0.6rem 0 1.1rem;
+  font-family: var(--font-script);
+  font-size: 1.35rem;
+  color: #b0574f;
+}
+
+.gate .stamp-btn[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+  transform: none;
+}
+
+@keyframes gate-shake {
+  0%, 100% { translate: 0 0; }
+  20% { translate: -8px 0; }
+  40% { translate: 7px 0; }
+  60% { translate: -5px 0; }
+  80% { translate: 3px 0; }
+}
