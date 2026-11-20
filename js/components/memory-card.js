@@ -58,6 +58,15 @@
       return this.getAttribute('caption') || '';
     }
 
+    /** Dados da foto para o visualizador. */
+    get photoItem() {
+      return {
+        src: this.getAttribute('src'),
+        alt: this.getAttribute('alt') || this.caption,
+        caption: this.caption,
+      };
+    }
+
     connectedCallback() {
       this._render();
     }
@@ -106,9 +115,14 @@
 
       if (this.hasAttribute('clip')) figure.appendChild(S.icon('i-clip', 'clip'));
 
-      figure.appendChild(
+      // A foto é um botão que abre o visualizador (tratado em main.js)
+      const zoom = S.el('button', 'polaroid__zoom');
+      zoom.type = 'button';
+      zoom.setAttribute('aria-label', caption ? `ampliar foto: ${caption}` : 'ampliar foto');
+      zoom.appendChild(
         S.photo(this.getAttribute('src'), this.getAttribute('alt') || caption, 'polaroid__photo')
       );
+      figure.appendChild(zoom);
 
       const figcaption = S.el('figcaption', 'polaroid__caption', caption);
       if (emoji) {

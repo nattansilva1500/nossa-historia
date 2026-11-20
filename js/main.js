@@ -71,7 +71,7 @@
   /* ==========================================================
      Página
      ========================================================== */
-  function mount({ memories = [], albums = [] }) {
+  function mount({ memories = [], albums = [], timeline: moments }) {
     /* ---------- Colagem ---------- */
     const collage = document.getElementById('collage');
     const emptyMessage = document.getElementById('collage-empty');
@@ -91,6 +91,85 @@
       items.appendChild(li);
     });
     track.replaceChildren(items);
+
+    /* ---------- Visualizador de fotos ---------- */
+
+    function albumTitle(album) {
+      return [album.heading, album.date].filter(Boolean).join(' · ');
+    }
+
+    // Colagem: abre a foto clicada e permite navegar pelas memórias visíveis (respeita a busca)
+    collage.addEventListener('click', (event) => {
+      const zoom = event.target.closest('.polaroid__zoom');
+      if (!zoom) return;
+      const visible = [...collage.querySelectorAll('memory-card:not([hidden])')];
+      const card = zoom.closest('memory-card');
+      S.Viewer.open(visible.map((c) => c.photoItem), visible.indexOf(card));
+    });
+
+    // Páginas Recentes: abre todas as fotos do álbum
+    track.addEventListener('click', (event) => {
+      const card = event.target.closest('album-card');
+      if (card) S.Viewer.open(card.photos, 0, card.viewerTitle);
+    });
+
+    /* ---------- Linha do Tempo ---------- */
+
+    // Usa a lista própria "timeline". Sem ela, cai nos álbuns (comportamento antigo).
+    const timeline = document.getElementById('timeline');
+    const timelineList = document.getElementById('timeline-list');
+    const timelineNavItem = document.querySelector('.nav a[href="#timeline"]')?.closest('li');
+    const steps = document.createDocumentFragment();
+
+    const entries = Array.isArray(moments)
+      ? moments
+      : albums.map((album) => ({ album: album.heading }));
+
+    entries.forEach((entry) => {
+      const album = entry.album ? albums.find((a) => a.heading === entry.album) : null;
+      const photos = Array.isArray(entry.photos)
+        ? entry.photos
+        : album && Array.isArray(album.photos) ? album.photos : [];
+      const heading = entry.title || (album && album.heading) || 'sem título';
+      const date = entry.date || (album && album.date) || '';
+      const tone = entry.tape || (album && album.tape);
+      const viewerTitle = albumTitle({ heading, date });
+      const cover = entry.cover || (photos[0] && photos[0].src);
+
+      const li = S.el('li', 'timeline__item');
+      li.style.setProperty('--tone', `var(--${S.oneOf(tone, S.TONES, 'rose')})`);
+
+      // Com fotos, o cartão abre o visualizador. Sem fotos, é só um bilhete.
+      const card = photos.length ? S.el('button', 'timeline__card') : S.el('div', 'timeline__card timeline__card--static');
+      if (photos.length) {
+        card.type = 'button';
+        card.setAttribute('aria-label', 'abrir fotos: ' + viewerTitle);
+        card.addEventListener('click', () => S.Viewer.open(photos, 0, viewerTitle));
+      }
+      if (cover) card.appendChild(S.photo(cover, '', 'timeline__photo', 400));
+
+      const text = S.el('span', 'timeline__text');
+      if (date) text.appendChild(S.el('span', 'timeline__date', date));
+      const title = S.el('span', 'timeline__heading', heading);
+      if (entry.emoji) {
+        const doodle = S.el('span', 'timeline__emoji', entry.emoji);
+        doodle.setAttribute('aria-hidden', 'true');
+        title.appendChild(doodle);
+      }
+      text.appendChild(title);
+      if (entry.text) text.appendChild(S.el('span', 'timeline__note', entry.text));
+      if (photos.length) {
+        text.appendChild(S.el('span', 'timeline__count', photos.length === 1 ? '1 foto' : `${photos.length} fotos`));
+      }
+      card.appendChild(text);
+
+      li.appendChild(card);
+      steps.appendChild(li);
+    });
+
+    timelineList.replaceChildren(steps);
+    timeline.hidden = entries.length === 0;
+    if (timelineNavItem) timelineNavItem.hidden = entries.length === 0;
 
     function updateScrollButtons() {
       const max = track.scrollWidth - track.clientWidth - 2;

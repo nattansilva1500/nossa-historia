@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>nossa história de amor.</title>
+  <title>Nossa história</title>
   <meta name="description" content="Um álbum digital guardando cada pequeno momento juntos." />
   <meta name="theme-color" content="#FDFBF7" />
   <meta name="robots" content="noindex, nofollow, noimageindex" />
@@ -73,6 +73,9 @@
         <path d="M15.4 15.6l5.1 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
       </symbol>
 
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path d="M6.2 6.5l11.4 11.2M17.6 6.2L6.5 17.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+      </symbol>
       <symbol id="i-chevron-left" viewBox="0 0 24 24">
         <path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
       </symbol>
@@ -106,13 +109,13 @@
       <span class="tape tape--sage tape--top-left" aria-hidden="true"></span>
       <span class="tape tape--rose tape--top-right" aria-hidden="true"></span>
       <svg class="gate__logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-heart-sketch" /></svg>
-      <h1 class="gate__title">nossa história de amor.</h1>
-      <p class="gate__hint">esse cantinho é só nosso. digite a nossa chave ♡</p>
+      <h1 class="gate__title">Nossa história de amor.</h1>
+      <p class="gate__hint">Esse cantinho é só nosso. digite a nossa chave ♡</p>
       <label for="gate-key" class="visually-hidden">chave de acesso</label>
       <input class="gate__input" id="gate-key" type="password" placeholder="nossa chave secreta…"
              autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
       <p class="gate__error" id="gate-error" role="alert"></p>
-      <button class="stamp-btn" type="submit">abrir o álbum</button>
+      <button class="stamp-btn" type="submit">Abrir o álbum</button>
     </form>
   </div>
 
@@ -153,11 +156,11 @@
         <svg class="doodle doodle--arrow-c" viewBox="0 0 64 32" aria-hidden="true"><use href="#i-arrow-curve" /></svg>
 
         <h1 class="hero__title" id="hero-title">Nossa história</h1>
-        <p class="hero__subtitle">guardando cada pequeno momento juntos.</p>
+        <p class="hero__subtitle">Guardando cada pedacinho de nós.</p>
 
         <!-- Os <memory-card> são renderizados a partir dos dados criptografados (js/data.enc.js) -->
         <div class="collage" id="collage"></div>
-        <p class="collage__empty" id="collage-empty" hidden>nenhuma memória encontrada… tente outra palavra ♡</p>
+        <p class="collage__empty" id="collage-empty" hidden>Nenhuma memória encontrada… Tente outra palavra ♡</p>
       </section>
 
       <section class="recent" id="scrapbook" aria-labelledby="recent-title">
@@ -180,6 +183,12 @@
           <ul class="recent__track" id="recent-track"></ul>
         </div>
       </section>
+
+      <section class="timeline" id="timeline" aria-labelledby="timeline-title">
+        <h2 class="timeline__title" id="timeline-title">Linha do Tempo</h2>
+        <!-- Montada a partir da lista "timeline" do private/memories.json (ou dos álbuns, se ela não existir) -->
+        <ol class="timeline__list" id="timeline-list"></ol>
+      </section>
     </main>
 
     <svg class="leaf-branch leaf-branch--left" viewBox="0 0 120 220" aria-hidden="true"><use href="#i-leaf-branch" /></svg>
@@ -189,6 +198,7 @@
   <script src="js/components/dom.js" defer></script>
   <script src="js/components/memory-card.js" defer></script>
   <script src="js/components/album-card.js" defer></script>
+  <script src="js/components/viewer.js" defer></script>
   <script src="js/vault.js" defer></script>
   <script src="js/data.enc.js" defer></script>
   <script src="js/main.js" defer></script>

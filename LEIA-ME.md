@@ -29,7 +29,30 @@ Na primeira vez, copie `private/memories.example.json` para `private/memories.js
 - `backing`: `notebook` ou `note` (com `backingTone` para a cor do bilhete)
 - `note`: anotação manuscrita acima da foto
 
-Os álbuns (`albums`) têm `heading`, `date`, `tape` e até 3 `photos` com `src` e `caption`.
+Os álbuns (`albums`) têm `heading`, `date`, `tape` e uma lista de `photos` com `src` e `caption`. O cartão mostra as 3 primeiras; ao clicar no álbum, todas abrem no visualizador.
+## Linha do Tempo
+
+A Linha do Tempo tem uma lista própria, `timeline`, ao lado de `memories` e `albums`. Os momentos aparecem na ordem do arquivo. Cada momento pode ter:
+
+- `date`: texto livre (ex.: `"12 mar 2023"`, `"verão de 2024"`)
+- `title`: título do momento
+- `text`: um texto curto; `\n` quebra a linha
+- `emoji`: doodle ao lado do título
+- `tape`: cor da bolinha na linha (`sage`, `rose`, `butter`, `blush`, `lavender`)
+- `photos`: lista de fotos (`src` e `caption`). Com fotos, clicar no momento abre o visualizador. Sem fotos, ele vira só um bilhete.
+- `cover`: foto da miniatura (padrão: a primeira de `photos`)
+- `album`: o `heading` exato de um álbum. Puxa as fotos, a data, o título e a cor desse álbum. Qualquer campo escrito no momento substitui o do álbum.
+
+Exemplo:
+
+```json
+"timeline": [
+  { "album": "Entrega das alianças", "emoji": "💍" },
+  { "date": "02 abr 2023", "title": "primeiro 'eu te amo'", "text": "no ponto de ônibus, na chuva." }
+]
+```
+
+Se não existir a lista `timeline`, a Linha do Tempo mostra os álbuns, como antes. Se ela existir e estiver vazia (`[]`), a seção e o link do menu somem.
 
 ## Trocar a chave
 

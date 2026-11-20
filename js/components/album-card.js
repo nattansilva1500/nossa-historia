@@ -4,9 +4,9 @@
  * Atributos:
  *   heading   título do álbum
  *   date      data curta (ex.: "mar 2024")
- *   href      link do álbum (padrão: #scrapbook)
  *   tape      cor da fita: sage | rose | butter | blush | lavender
- *   photos    JSON com até 3 fotos: [{"src": "...", "caption": "..."}]
+ *   photos    JSON com as fotos: [{"src": "...", "caption": "..."}]
+ *             O cartão mostra as 3 primeiras; ao clicar, todas abrem no visualizador.
  *
  * Também aceita a propriedade `photos` (array) via JS:
  *   Scrapbook.AlbumCard.create({ heading, date, tape, photos: [...] })
@@ -15,16 +15,16 @@
   'use strict';
 
   const S = window.Scrapbook;
-  const MAX_PHOTOS = 3;
+  const PREVIEW_PHOTOS = 3;
 
   class AlbumCard extends HTMLElement {
     static get observedAttributes() {
-      return ['heading', 'date', 'href', 'tape', 'photos'];
+      return ['heading', 'date', 'tape', 'photos'];
     }
 
     static create(data = {}) {
       const card = document.createElement('album-card');
-      ['heading', 'date', 'href', 'tape'].forEach((key) => {
+      ['heading', 'date', 'tape'].forEach((key) => {
         if (data[key]) card.setAttribute(key, String(data[key]));
       });
       card.photos = data.photos || [];
@@ -35,15 +35,22 @@
       if (this._photos) return this._photos;
       try {
         const parsed = JSON.parse(this.getAttribute('photos') || '[]');
-        return Array.isArray(parsed) ? parsed.slice(0, MAX_PHOTOS) : [];
+        return Array.isArray(parsed) ? parsed : [];
       } catch {
         return [];
       }
     }
 
     set photos(value) {
-      this._photos = Array.isArray(value) ? value.slice(0, MAX_PHOTOS) : [];
+      this._photos = Array.isArray(value) ? value : [];
       if (this._rendered) this._render();
+    }
+
+    /** Título usado no visualizador (ex.: "o começo · mar 2023"). */
+    get viewerTitle() {
+      const heading = this.getAttribute('heading') || '';
+      const date = this.getAttribute('date') || '';
+      return [heading, date].filter(Boolean).join(' · ');
     }
 
     connectedCallback() {
@@ -58,9 +65,10 @@
       const heading = this.getAttribute('heading') || 'página sem título';
       const date = this.getAttribute('date') || '';
 
-      const link = S.el('a', 'album');
-      link.href = this.getAttribute('href') || '#scrapbook';
-      link.setAttribute('aria-label', date ? `${heading}, ${date}` : heading);
+      // Botão: o clique é tratado em main.js e abre o visualizador
+      const link = S.el('button', 'album');
+      link.type = 'button';
+      link.setAttribute('aria-label', 'abrir álbum: ' + (date ? `${heading}, ${date}` : heading));
 
       const sheet = S.el('div', 'album__sheet');
       const tone = S.oneOf(this.getAttribute('tape'), S.TONES, 'rose');
@@ -68,7 +76,7 @@
       tape.setAttribute('aria-hidden', 'true');
       sheet.appendChild(tape);
 
-      this.photos.forEach((item, i) => {
+      this.photos.slice(0, PREVIEW_PHOTOS).forEach((item, i) => {
         const fig = S.el('figure', `mini-polaroid mini-polaroid--${i + 1}`);
         fig.appendChild(S.photo(item && item.src, '', 'mini-polaroid__photo', 400));
         if (item && item.caption) fig.appendChild(S.el('figcaption', '', item.caption));

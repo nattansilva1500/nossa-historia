@@ -57,7 +57,20 @@ function validate(data) {
   (data.albums || []).forEach((a, i) => {
     if (a.photos != null && !Array.isArray(a.photos)) fail(`albums[${i}].photos precisa ser uma lista.`);
   });
-  return { memories: data.memories, albums: data.albums || [] };
+  const albums = data.albums || [];
+  if (data.timeline != null && !Array.isArray(data.timeline)) fail('"timeline" precisa ser uma lista.');
+  (data.timeline || []).forEach((t, i) => {
+    if (!t || typeof t !== 'object') fail(`timeline[${i}] precisa ser um objeto.`);
+    if (!t.title && !t.album) fail(`timeline[${i}] precisa de "title" ou "album".`);
+    if (t.photos != null && !Array.isArray(t.photos)) fail(`timeline[${i}].photos precisa ser uma lista.`);
+    if (t.album && !albums.some((a) => a.heading === t.album)) {
+      fail(`timeline[${i}].album "${t.album}" não corresponde ao "heading" de nenhum álbum.`);
+    }
+  });
+
+  const result = { memories: data.memories, albums };
+  if (Array.isArray(data.timeline)) result.timeline = data.timeline;
+  return result;
 }
 
 async function deriveKey(key, salt, usage) {
@@ -123,7 +136,9 @@ async function main() {
 
   await writeFile(OUTPUT, file, 'utf8');
   console.log(
-    `\n✓ ${data.memories.length} memórias e ${data.albums.length} álbuns criptografados em ${path.relative(ROOT, OUTPUT)}\n`
+    `\n✓ ${data.memories.length} memórias, ${data.albums.length} álbuns e ` +
+      `${data.timeline ? data.timeline.length + ' momentos na linha do tempo' : 'linha do tempo a partir dos álbuns'} ` +
+      `criptografados em ${path.relative(ROOT, OUTPUT)}\n`
   );
 }
 

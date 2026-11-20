@@ -51,9 +51,18 @@
       "date": "mar 2023",
       "tape": "rose",
       "photos": [
-        { "src": "https://picsum.photos/seed/album-beginning-1/300/300", "caption": "o começo" },
-        { "src": "https://picsum.photos/seed/album-beginning-2/300/300", "caption": "1º encontro" },
-        { "src": "https://picsum.photos/seed/album-beginning-3/300/300", "caption": "nós ♡" }
+        {
+          "src": "https://picsum.photos/seed/album-beginning-1/300/300",
+          "caption": "o começo"
+        },
+        {
+          "src": "https://picsum.photos/seed/album-beginning-2/300/300",
+          "caption": "1º encontro"
+        },
+        {
+          "src": "https://picsum.photos/seed/album-beginning-3/300/300",
+          "caption": "nós ♡"
+        }
       ]
     },
     {
@@ -61,8 +70,14 @@
       "date": "out 2023",
       "tape": "sage",
       "photos": [
-        { "src": "https://picsum.photos/seed/album-autumn-1/300/300", "caption": "folhas douradas" },
-        { "src": "https://picsum.photos/seed/album-autumn-2/300/300", "caption": "passeios" }
+        {
+          "src": "https://picsum.photos/seed/album-autumn-1/300/300",
+          "caption": "folhas douradas"
+        },
+        {
+          "src": "https://picsum.photos/seed/album-autumn-2/300/300",
+          "caption": "passeios"
+        }
       ]
     },
     {
@@ -70,9 +85,18 @@
       "date": "jan 2024",
       "tape": "butter",
       "photos": [
-        { "src": "https://picsum.photos/seed/album-coffee-1/300/300", "caption": "cafezinho" },
-        { "src": "https://picsum.photos/seed/album-coffee-2/300/300", "caption": "domingo" },
-        { "src": "https://picsum.photos/seed/album-coffee-3/300/300", "caption": "lattes" }
+        {
+          "src": "https://picsum.photos/seed/album-coffee-1/300/300",
+          "caption": "cafezinho"
+        },
+        {
+          "src": "https://picsum.photos/seed/album-coffee-2/300/300",
+          "caption": "domingo"
+        },
+        {
+          "src": "https://picsum.photos/seed/album-coffee-3/300/300",
+          "caption": "lattes"
+        }
       ]
     },
     {
@@ -80,9 +104,61 @@
       "date": "jul 2024",
       "tape": "lavender",
       "photos": [
-        { "src": "https://picsum.photos/seed/album-sea-1/300/300", "caption": "pé na areia" },
-        { "src": "https://picsum.photos/seed/album-sea-2/300/300", "caption": "pôr do sol" },
-        { "src": "https://picsum.photos/seed/album-sea-3/300/300", "caption": "sorvete" }
+        {
+          "src": "https://picsum.photos/seed/album-sea-1/300/300",
+          "caption": "pé na areia"
+        },
+        {
+          "src": "https://picsum.photos/seed/album-sea-2/300/300",
+          "caption": "pôr do sol"
+        },
+        {
+          "src": "https://picsum.photos/seed/album-sea-3/300/300",
+          "caption": "sorvete"
+        }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "date": "12 mar 2023",
+      "title": "o dia em que a gente se conheceu",
+      "emoji": "✨",
+      "text": "um café que virou três horas de conversa.",
+      "tape": "rose",
+      "photos": [
+        {
+          "src": "https://picsum.photos/seed/tl-meet/900/700",
+          "caption": "a primeira foto juntos"
+        }
+      ]
+    },
+    {
+      "album": "o começo",
+      "text": "as primeiras semanas, guardadas num álbum só."
+    },
+    {
+      "date": "02 abr 2023",
+      "title": "primeiro 'eu te amo'",
+      "emoji": "♡",
+      "text": "no ponto de ônibus, na chuva.\nnenhum dos dois tinha guarda-chuva.",
+      "tape": "blush"
+    },
+    {
+      "date": "out 2023",
+      "title": "primeira viagem",
+      "emoji": "🧳",
+      "tape": "sage",
+      "cover": "https://picsum.photos/seed/tl-trip-cover/400/400",
+      "photos": [
+        {
+          "src": "https://picsum.photos/seed/tl-trip-1/900/700",
+          "caption": "estrada"
+        },
+        {
+          "src": "https://picsum.photos/seed/tl-trip-2/900/700",
+          "caption": "pôr do sol"
+        }
       ]
     }
   ]
