@@ -1,50 +1,5 @@
 {
-  "memories": [
-    {
-      "src": "https://drive.google.com/file/d/SUBSTITUA_PELO_ID_DA_FOTO/view?usp=sharing",
-      "alt": "Nós dois rindo juntos ao ar livre",
-      "caption": "o começo",
-      "emoji": "✨",
-      "rotate": -2,
-      "tape": "sage",
-      "tapePosition": "top-left",
-      "backing": "notebook",
-      "note": "bilhetes de amor"
-    },
-    {
-      "src": "https://picsum.photos/seed/autumn-strolls/600/750",
-      "alt": "De mãos dadas em um passeio de outono",
-      "caption": "passeios de outono",
-      "emoji": "🍂",
-      "rotate": 3,
-      "tape": "rose",
-      "tapePosition": "top",
-      "clip": true,
-      "backing": "note",
-      "backingTone": "rose"
-    },
-    {
-      "src": "https://picsum.photos/seed/first-coffee/600/750",
-      "alt": "Dividindo um café na nossa cafeteria favorita",
-      "caption": "nosso primeiro café",
-      "emoji": "☕",
-      "rotate": -2,
-      "tape": "sage",
-      "tapePosition": "bottom-right",
-      "clip": true
-    },
-    {
-      "src": "https://picsum.photos/seed/coffee-coffee/600/750",
-      "alt": "Manhã aconchegante com duas xícaras de café",
-      "caption": "café, café",
-      "emoji": "♡",
-      "rotate": 3,
-      "tape": "butter",
-      "tapePosition": "top",
-      "backing": "note",
-      "backingTone": "butter"
-    }
-  ],
+  "since": "2026-08-14",
   "albums": [
     {
       "heading": "o começo",
@@ -161,5 +116,10 @@
         }
       ]
     }
-  ]
+  ],
+  "ending": {
+    "date": "2026-04-04",
+    "title": "Destino: Para sempre ❤️",
+    "text": "E nossa história continua..."
+  }
 }

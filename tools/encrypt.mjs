@@ -48,11 +48,26 @@ function fail(message) {
 }
 
 function validate(data) {
-  if (!data || !Array.isArray(data.memories)) fail('O JSON precisa ter uma lista "memories".');
-  data.memories.forEach((m, i) => {
-    if (!m || typeof m.src !== 'string' || !m.src.trim()) fail(`memories[${i}] está sem "src".`);
-    if (typeof m.caption !== 'string') fail(`memories[${i}] está sem "caption".`);
-  });
+  if (!data || typeof data !== 'object') fail('O JSON precisa ser um objeto.');
+
+  // Datas: "AAAA-MM-DD" ou "AAAA-MM-DDTHH:MM" (horário local)
+  const checkDate = (value, field) => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}))?$/.exec(String(value).trim());
+    const date = m && new Date(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0));
+    if (!date || date.getMonth() !== +m[2] - 1 || date.getDate() !== +m[3]) {
+      fail(`"${field}" inválido: "${value}". Use o formato "2026-08-14" ou "2026-08-14T19:30".`);
+    }
+  };
+  if (data.since != null) checkDate(data.since, 'since');
+
+  // Card final da linha do tempo (todos os campos são opcionais)
+  if (data.ending != null) {
+    if (typeof data.ending !== 'object' || Array.isArray(data.ending)) fail('"ending" precisa ser um objeto.');
+    ['date', 'title', 'text'].forEach((key) => {
+      if (data.ending[key] != null && typeof data.ending[key] !== 'string') fail(`"ending.${key}" precisa ser um texto.`);
+    });
+    if (data.ending.date) checkDate(data.ending.date, 'ending.date');
+  }
   if (data.albums != null && !Array.isArray(data.albums)) fail('"albums" precisa ser uma lista.');
   (data.albums || []).forEach((a, i) => {
     if (a.photos != null && !Array.isArray(a.photos)) fail(`albums[${i}].photos precisa ser uma lista.`);
@@ -68,8 +83,14 @@ function validate(data) {
     }
   });
 
-  const result = { memories: data.memories, albums };
+  // "memories" (colagem antiga) não é mais usada pela página e fica de fora
+  const result = { albums };
+  if (data.since != null) result.since = String(data.since).trim();
   if (Array.isArray(data.timeline)) result.timeline = data.timeline;
+  if (data.ending) {
+    const { date, title, text } = data.ending;
+    result.ending = { date, title, text };
+  }
   return result;
 }
 
@@ -136,7 +157,8 @@ async function main() {
 
   await writeFile(OUTPUT, file, 'utf8');
   console.log(
-    `\n✓ ${data.memories.length} memórias, ${data.albums.length} álbuns e ` +
+    `\n✓ ${data.since ? `contador desde ${data.since}, ` : 'sem data do contador ("since"), '}` +
+      `${data.albums.length} álbuns e ` +
       `${data.timeline ? data.timeline.length + ' momentos na linha do tempo' : 'linha do tempo a partir dos álbuns'} ` +
       `criptografados em ${path.relative(ROOT, OUTPUT)}\n`
   );

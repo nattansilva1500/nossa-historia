@@ -127,16 +127,16 @@
 
       <nav class="nav" aria-label="Principal">
         <ul>
-          <li><a href="#memories" aria-current="page">Nossas Memórias</a></li>
-          <li><a href="#scrapbook">Álbum</a></li>
+          <li><a href="#memories" aria-current="page">Juntos</a></li>
+          <li><a href="#scrapbook">Álbuns</a></li>
           <li><a href="#timeline">Linha do Tempo</a></li>
         </ul>
       </nav>
 
       <div class="search" id="search" role="search">
-        <label for="search-input" class="visually-hidden">Buscar memórias</label>
-        <input id="search-input" class="search__input" type="search" placeholder="buscar memórias…" autocomplete="off" maxlength="40" />
-        <button class="icon-btn" id="search-toggle" type="button" aria-label="Buscar memórias" aria-expanded="false" aria-controls="search-input">
+        <label for="search-input" class="visually-hidden">Buscar álbuns e momentos</label>
+        <input id="search-input" class="search__input" type="search" placeholder="buscar álbuns e momentos…" autocomplete="off" maxlength="40" />
+        <button class="icon-btn" id="search-toggle" type="button" aria-label="Buscar álbuns e momentos" aria-expanded="false" aria-controls="search-input">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-search" /></svg>
         </button>
       </div>
@@ -157,23 +157,43 @@
 
         <h1 class="hero__title" id="hero-title">Nossa história</h1>
         <p class="hero__subtitle">Guardando cada pedacinho de nós.</p>
-
-        <!-- Os <memory-card> são renderizados a partir dos dados criptografados (js/data.enc.js) -->
-        <div class="collage" id="collage"></div>
-        <p class="collage__empty" id="collage-empty" hidden>Nenhuma memória encontrada… Tente outra palavra ♡</p>
+        <!-- Contador de tempo juntos. A data vem de "since" no private/memories.json (criptografado) -->
+        <div class="counter" id="counter" hidden>
+          <span class="tape tape--sage tape--top" aria-hidden="true"></span>
+          <svg class="clip counter__clip" viewBox="0 0 24 60" aria-hidden="true" focusable="false"><use href="#i-clip" /></svg>
+          <p class="counter__label" id="counter-label">juntos há</p>
+          <div class="counter__units" role="timer" aria-labelledby="counter-label">
+            <div class="counter__unit">
+              <span class="counter__value" id="counter-days">0</span>
+              <span class="counter__name" id="counter-days-name">dias</span>
+            </div>
+            <div class="counter__unit">
+              <span class="counter__value" id="counter-hours">0</span>
+              <span class="counter__name" id="counter-hours-name">horas</span>
+            </div>
+            <div class="counter__unit">
+              <span class="counter__value" id="counter-minutes">0</span>
+              <span class="counter__name" id="counter-minutes-name">minutos</span>
+            </div>
+          </div>
+          <p class="counter__since"><span id="counter-since-prefix">desde</span> <time id="counter-since"></time></p>
+          <svg class="counter__heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-heart-line" /></svg>
+        </div>
       </section>
+
+      <p class="search-empty" id="search-empty" hidden>Nada encontrado… Tente outra palavra ♡</p>
 
       <section class="recent" id="scrapbook" aria-labelledby="recent-title">
         <svg class="doodle doodle--loop" viewBox="0 0 60 110" aria-hidden="true"><use href="#i-loop-arrow" /></svg>
 
         <div class="recent__main">
           <div class="recent__head">
-            <h2 class="recent__title" id="recent-title">Páginas Recentes</h2>
+            <h2 class="recent__title" id="recent-title">Nossos Álbuns</h2>
             <div class="recent__controls">
-              <button class="round-btn" type="button" data-scroll="-1" aria-label="Páginas anteriores" aria-controls="recent-track">
+              <button class="round-btn" type="button" data-scroll="-1" aria-label="Álbuns anteriores" aria-controls="recent-track">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-chevron-left" /></svg>
               </button>
-              <button class="round-btn" type="button" data-scroll="1" aria-label="Próximas páginas" aria-controls="recent-track">
+              <button class="round-btn" type="button" data-scroll="1" aria-label="Próximos álbuns" aria-controls="recent-track">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-chevron-right" /></svg>
               </button>
             </div>
@@ -188,6 +208,27 @@
         <h2 class="timeline__title" id="timeline-title">Linha do Tempo</h2>
         <!-- Montada a partir da lista "timeline" do private/memories.json (ou dos álbuns, se ela não existir) -->
         <ol class="timeline__list" id="timeline-list"></ol>
+
+        <!-- Final da linha do tempo: a linha faz um loop, termina num aviãozinho de papel e chega no card final.
+             Data, título e texto podem ser trocados em "ending" no private/memories.json (criptografado). -->
+        <div class="timeline__end" id="timeline-end">
+          <svg class="timeline__flow" viewBox="0 0 120 124" aria-hidden="true" focusable="false">
+            <!-- Linha tracejada que desce, faz o loop e entra no aviãozinho -->
+            <path class="timeline__flow-line" d="M60 0 V24 C60 40 84 44 90 28 C96 12 74 4 68 20 C63 33 60 52 60 80" />
+            <!-- Aviãozinho de papel apontando para baixo -->
+            <path class="timeline__flow-plane" d="M60 118 L41 80 L60 90 L79 80 Z" />
+            <path class="timeline__flow-plane" d="M60 90 V118 M60 90 L50 103" />
+          </svg>
+
+          <div class="timeline__card timeline__card--static timeline__card--final">
+            <span class="tape tape--duo tape--top" aria-hidden="true"></span>
+            <span class="timeline__text">
+              <span class="timeline__date" id="timeline-end-date" hidden></span>
+              <span class="timeline__heading" id="timeline-end-title">Para sempre ❤️</span>
+              <span class="timeline__note" id="timeline-end-text">E nossa história continua...</span>
+            </span>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -196,7 +237,6 @@
   </div>
 
   <script src="js/components/dom.js" defer></script>
-  <script src="js/components/memory-card.js" defer></script>
   <script src="js/components/album-card.js" defer></script>
   <script src="js/components/viewer.js" defer></script>
   <script src="js/vault.js" defer></script>

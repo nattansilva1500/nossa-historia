@@ -19,16 +19,17 @@
 
 Na primeira vez, copie `private/memories.example.json` para `private/memories.json` e edite.
 
-## Campos de cada memória
+## Contador
 
-- `src`, `caption` (obrigatórios), `alt`, `emoji`
-- `rotate`: inclinação em graus, de -8 a 8
-- `tape`: `sage`, `rose`, `butter`, `blush` ou `lavender`
-- `tapePosition`: `top`, `top-left`, `top-right`, `bottom-left` ou `bottom-right`
-- `clip`: `true` para colocar um clipe
-- `backing`: `notebook` ou `note` (com `backingTone` para a cor do bilhete)
-- `note`: anotação manuscrita acima da foto
+O início da página mostra há quanto tempo vocês estão juntos, em dias, horas e minutos. A data fica em `since`, no topo do `private/memories.json`:
 
+```json
+"since": "2026-08-14"
+```
+
+Também aceita horário: `"2026-08-14T19:30"`. Sem `since`, o contador não aparece. Se a data for no futuro, ele mostra quanto tempo falta.
+
+## Álbuns
 Os álbuns (`albums`) têm `heading`, `date`, `tape` e uma lista de `photos` com `src` e `caption`. O cartão mostra as 3 primeiras; ao clicar no álbum, todas abrem no visualizador.
 ## Linha do Tempo
 

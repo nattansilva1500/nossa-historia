@@ -1,5 +1,5 @@
 /**
- * Tela da chave de acesso + montagem da página (colagem, Páginas Recentes e busca).
+ * Tela da chave de acesso + montagem da página (contador, álbuns, linha do tempo e busca).
  *
  * A chave nunca é salva: fica só na memória até a página ser recarregada.
  */
@@ -71,16 +71,12 @@
   /* ==========================================================
      Página
      ========================================================== */
-  function mount({ memories = [], albums = [], timeline: moments }) {
-    /* ---------- Colagem ---------- */
-    const collage = document.getElementById('collage');
-    const emptyMessage = document.getElementById('collage-empty');
+  function mount({ since, albums = [], timeline: moments, ending }) {
+    /* ---------- Contador de tempo juntos ---------- */
+    startCounter(since);
+    fillTimelineEnd(ending, since);
 
-    const cards = document.createDocumentFragment();
-    memories.forEach((memory, i) => cards.appendChild(S.MemoryCard.create(memory, i)));
-    collage.replaceChildren(cards);
-
-    /* ---------- Páginas Recentes ---------- */
+    /* ---------- Nossos Álbuns ---------- */
     const track = document.getElementById('recent-track');
     const scrollButtons = document.querySelectorAll('[data-scroll]');
 
@@ -98,16 +94,7 @@
       return [album.heading, album.date].filter(Boolean).join(' · ');
     }
 
-    // Colagem: abre a foto clicada e permite navegar pelas memórias visíveis (respeita a busca)
-    collage.addEventListener('click', (event) => {
-      const zoom = event.target.closest('.polaroid__zoom');
-      if (!zoom) return;
-      const visible = [...collage.querySelectorAll('memory-card:not([hidden])')];
-      const card = zoom.closest('memory-card');
-      S.Viewer.open(visible.map((c) => c.photoItem), visible.indexOf(card));
-    });
-
-    // Páginas Recentes: abre todas as fotos do álbum
+    // Álbuns: abre todas as fotos do álbum
     track.addEventListener('click', (event) => {
       const card = event.target.closest('album-card');
       if (card) S.Viewer.open(card.photos, 0, card.viewerTitle);
@@ -193,15 +180,31 @@
     const searchInput = document.getElementById('search-input');
     const searchToggle = document.getElementById('search-toggle');
 
+    const searchEmpty = document.getElementById('search-empty');
+    const normalize = (value) =>
+      String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    // Filtra os álbuns (título, data e legendas) e os momentos da linha do tempo (texto visível)
     function filterMemories(term) {
-      const query = term.trim().toLowerCase();
+      const query = normalize(term.trim());
       let visible = 0;
-      collage.querySelectorAll('memory-card').forEach((card) => {
-        const match = !query || card.caption.toLowerCase().includes(query);
-        card.hidden = !match;
+
+      track.querySelectorAll('li').forEach((li) => {
+        const card = li.querySelector('album-card');
+        const text = [card.getAttribute('heading'), card.getAttribute('date'), ...card.photos.map((p) => p && p.caption)];
+        const match = !query || normalize(text.join(' ')).includes(query);
+        li.hidden = !match;
         if (match) visible += 1;
       });
-      emptyMessage.hidden = visible > 0;
+
+      timelineList.querySelectorAll('.timeline__item').forEach((item) => {
+        const match = !query || normalize(item.textContent).includes(query);
+        item.hidden = !match;
+        if (match) visible += 1;
+      });
+
+      searchEmpty.hidden = visible > 0;
+      updateScrollButtons();
     }
 
     function setSearchOpen(open) {
@@ -218,7 +221,7 @@
     searchToggle.addEventListener('click', () => {
       const open = !search.classList.contains('is-open');
       setSearchOpen(open);
-      if (open) document.getElementById('memories').scrollIntoView({ block: 'start' });
+      if (open) document.getElementById('scrapbook').scrollIntoView({ block: 'start' });
     });
     searchInput.addEventListener('input', () => filterMemories(searchInput.value));
     searchInput.addEventListener('keydown', (event) => {
@@ -226,6 +229,83 @@
         setSearchOpen(false);
         searchToggle.focus();
       }
+    });
+  }
+
+  /* ==========================================================
+     Contador
+     ========================================================== */
+
+  /**
+   * Card final da linha do tempo. Textos padrão ficam no index.html;
+   * "ending" (date, title, text) no memories.json substitui qualquer um deles.
+   * Sem "ending.date", usa a data de início do contador ("since").
+   */
+  function fillTimelineEnd(ending = {}, since) {
+    const dateEl = document.getElementById('timeline-end-date');
+    const date = parseLocalDate(ending.date || since);
+    if (date) {
+      const text = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
+      dateEl.textContent = 'desde ' + text; // o CSS coloca em caixa alta
+      dateEl.hidden = false;
+    }
+    if (ending.title) document.getElementById('timeline-end-title').textContent = ending.title;
+    if (ending.text) document.getElementById('timeline-end-text').textContent = ending.text;
+  }
+
+  /** Aceita "2026-08-14" ou "2026-08-14T19:30" e interpreta no horário local. */
+  function parseLocalDate(value) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}))?$/.exec(String(value || '').trim());
+    if (!m) return null;
+    const [, y, mo, d, h = '0', mi = '0'] = m;
+    const date = new Date(Number(y), Number(mo) - 1, Number(d), Number(h), Number(mi));
+    return Number.isNaN(date.getTime()) || date.getMonth() !== Number(mo) - 1 ? null : date;
+  }
+
+  function startCounter(since) {
+    const counter = document.getElementById('counter');
+    const start = parseLocalDate(since);
+    if (!start) {
+      counter.hidden = true;
+      return;
+    }
+
+    const $ = (id) => document.getElementById(id);
+    const units = [
+      { value: $('counter-days'), name: $('counter-days-name'), one: 'dia', many: 'dias' },
+      { value: $('counter-hours'), name: $('counter-hours-name'), one: 'hora', many: 'horas' },
+      { value: $('counter-minutes'), name: $('counter-minutes-name'), one: 'minuto', many: 'minutos' },
+    ];
+
+    const sinceEl = $('counter-since');
+    sinceEl.dateTime = since;
+    sinceEl.textContent = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }).format(start);
+
+    function render() {
+      const diff = Date.now() - start.getTime();
+      const future = diff < 0;
+      const totalMinutes = Math.floor(Math.abs(diff) / 60000);
+      const parts = [Math.floor(totalMinutes / 1440), Math.floor((totalMinutes % 1440) / 60), totalMinutes % 60];
+
+      $('counter-label').textContent = future ? 'faltam' : 'juntos há';
+      $('counter-since-prefix').textContent = future ? 'para' : 'desde';
+      parts.forEach((n, i) => {
+        const text = n.toLocaleString('pt-BR');
+        if (units[i].value.textContent !== text) units[i].value.textContent = text;
+        units[i].name.textContent = n === 1 ? units[i].one : units[i].many;
+      });
+    }
+
+    render();
+    counter.hidden = false;
+    // Atualiza na virada de cada minuto
+    setTimeout(() => {
+      render();
+      setInterval(render, 60000);
+    }, 60000 - (Date.now() % 60000) + 50);
+    // Ao voltar para a aba (celular suspende timers), corrige na hora
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) render();
     });
   }
 })();
